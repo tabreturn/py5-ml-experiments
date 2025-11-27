@@ -1,2 +1,3 @@
-# py5-ml-experiments
-Various ML-related experiments using py5
+# py5 ML Experiments
+
+*Various ML-related experiments using py5*

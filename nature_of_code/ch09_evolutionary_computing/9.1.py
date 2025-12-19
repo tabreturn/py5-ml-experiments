@@ -2,6 +2,7 @@
 
 population = []  # A list for the population of elements
 target = "cat" #"to be or not to be"
+mutationrate = 0.01
 
 
 class DNA:
@@ -30,6 +31,29 @@ class DNA:
         c = floor(random(32, 127))
         return chr(c)
 
+    def crossover(self, partner: 'DNA'):
+        # The child is a new instance of DNA.
+        # (Note that the genes are generated randomly in the DNA constructor,
+        # but the crossover method will override the array.)
+        child = DNA(len(self.genes))
+        
+        # Pick a random midpoint in the genes array.
+        midpoint = floor(random(len(self.genes)))
+
+        # Before the midpoint, take genes from this DNA.
+        child.genes[:midpoint] = self.genes[:midpoint]
+        # After the midpoint, take from the partner DNA.
+        child.genes[midpoint:] = partner.genes[midpoint:]
+
+        return child
+
+    def mutate(self):
+        for i, _ in enumerate(self.genes):  # Look at each gene in the array.
+            # Check a random number against the mutation rate.
+            if random(1) < mutationrate:
+                # Mutation means choosing a new random character.
+                self.genes[i] = self.random_character()
+            
 
 def setup():
     """Initialize each element of the population;
@@ -38,11 +62,11 @@ def setup():
 
 #     for _ in range(100):
 #         population.append(DNA(18))
-    population.append(DNA(3))
-    population.append(DNA(3))
-    population.append(DNA(3))
-    population[0].genes = list('cat')
-    population[1].genes = list('gag')
+    population.append(DNA(3))  #------------------------------------------------
+    population.append(DNA(3))  #------------------------------------------------
+    population.append(DNA(3))  #------------------------------------------------
+    population[0].genes = list('cat')  #----------------------------------------
+    population[1].genes = list('gag')  #----------------------------------------
 
 
 def draw():
@@ -57,17 +81,20 @@ def draw():
 
         n = floor(phrase.fitness * 100)
         
-        print(phrase.genes); print(n)
+        print(phrase.genes); print(n)  #----------------------------------------
 
         for _ in range(n):
             """Add each member of the population to the mating pool n times."""
             matingpool.append(phrase)
 
-    for m in matingpool:
-        print(m.genes)
+    for m in matingpool:  #-----------------------------------------------------
+        print(m.genes)    #-----------------------------------------------------
 
+    parenta = random_choice(matingpool)
+    parentb = random_choice(matingpool)
 
-
+    child = parenta.crossover(parentb)  # A function for crossover
+    child.mutate()  # A function for mutation
 
 
 

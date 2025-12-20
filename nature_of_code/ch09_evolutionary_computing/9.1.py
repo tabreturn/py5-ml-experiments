@@ -1,12 +1,10 @@
 # https://natureofcode.com/genetic-algorithms/#coding-the-genetic-algorithm
 
 from dna import DNA
-#from population import Population
 
-mutationrate = 0.1            # Mutation rate
-populationsize = 5           # Population size
-population = []                # Population list
-target = 'cat'  # Target phrase
+MUTATION_RATE = 0.01           # Mutation rate
+POPULATION_SIZE = 150          # Population size
+TARGET = 'to be or not to be'  # Target phrase
 
 
 def setup():
@@ -15,36 +13,34 @@ def setup():
     monospace = create_font('DejaVu Sans Mono', 32)
 
     # Step 1: Initialization
-    for _ in range(populationsize):
-        population.append(DNA(len(target)))
+    population = [DNA(len(TARGET)) for _ in range(POPULATION_SIZE)]
 
 
-def draw():  # Step 2: Selection
+def draw():
+    global population
 
-    for phrase in population:  # Step 2a: Calculate fitness.
-        phrase.calculate_fitness(target)
+    # Step 2a: Calculate fitness
+    for phrase in population:
+        phrase.calculate_fitness(TARGET)
+
+    display_progress()
     
-    print('population:')
-    print(*(dna.genes for dna in population), sep="\n")
-
-    matingpool = []  # Step 2b: Build the mating pool.
+    # Step 2b: Build the mating pool
+    mating_pool = []
 
     for phrase in population:
-        # Add each member n times according to its fitness score.
+        # Add each member n times according to its fitness score
         n = floor(phrase.fitness * 100)
-        for _ in range(n):
-            matingpool.append(phrase)
-        # Add one of each, even if score is zero (so always enough to mate).
-        matingpool.append(phrase)
-    
-    print(f'total mating pool: {len(matingpool)}')
-    
-    for i, _ in enumerate(population):  # Step 3: Reproduction
-        parenta = random_choice(matingpool)
-        parentb = random_choice(matingpool)
+        # Always include at least one copy so selection never fails
+        mating_pool.extend([phrase] * (n + 1))
+
+    # Step 3: Reproduction
+    for i, _ in enumerate(population):
+        parenta = random_choice(mating_pool)
+        parentb = random_choice(mating_pool)
 
         child = parenta.crossover(parentb)  # Step 3a: Crossover
-        child.mutate(mutationrate)  # Step 3b: Mutation
+        child.mutate(MUTATION_RATE)          # Step 3b: Mutation
         
         ''' Note that you are overwriting the population with the new children.
         When draw() loops, you will perform all the same steps with the new
@@ -52,38 +48,47 @@ def draw():  # Step 2: Selection
         population[i] = child
 
         # Step 4: Repetition. Go back to the beginning of draw()!
-    
-    print(f'parents: \n{parenta.genes}\n{parentb.genes}')
 
+
+def display_progress():
+    '''Report information about the progress of the GA itself'''
     background(255)
     fill(0)
     text_font(monospace)
+
+    best = ''.join(max(population, key=lambda phrase: phrase.fitness).genes)
     text_size(12)
     text('Best phrase:', 10, 32)
     text_size(24)
-    text('answer', 10, 64)
-    
+    text(best, 10, 64)
+
+    avgfitness = sum(phrase.fitness for phrase in population) / len(population)
     statstext = (
       f'total generations:     {frame_count}\n'
-      f'average fitness:       nf(population.getAverageFitness(), 0, 2)\n'
-      f'total population:      {populationsize}\n'
-      f'mutation rate:         {floor(mutationrate * 100)}%'
+      f'average fitness:       {avgfitness:.2f}\n'
+      f'total population:      {POPULATION_SIZE}\n'
+      f'mutation rate:         {floor(MUTATION_RATE * 100)}%'
     )
-
-# 
     text_size(12)
     text(statstext, 10, 96)
-#    textSize(8)
-#    text(population.allPhrases(), width / 2, 24)
 
-    print(f'frame count: {frame_count}')
-    no_loop()
+    phrasestext = '| ' + '| '.join(
+      ''.join(population[i].genes) + ('\n' if i % 3 == 2 else ' ')
+      for i in range(min(len(population), 99))
+    )
+    text_size(8)
+    text(phrasestext, width / 2, 24)
+    
+    text_size(10)
+    text('(Z) advance frame\n(X) run continuous\n(C) pause\n(Q) quit', 10, 300)
 
+    if best == TARGET:  # Stop once the phrase is solved
+        no_loop()
 
 
 def key_pressed():
-    if key == 'x':
-        exit_sketch()
-    if key == 'z':
-        loop()
-        
+    '''Add keys to advance frame, run continuous, pause, quit'''
+    if key == 'z': redraw()
+    if key == 'x': loop()
+    if key == 'c': no_loop()
+    if key == 'q': exit_sketch()

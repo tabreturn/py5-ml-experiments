@@ -13,10 +13,7 @@ class DNA:
     def calculate_fitness(self, target: str) -> None:
         '''Calculate fitness.'''
         assert len(target) == len(self.genes)
-        score = 0
-        for i, gene in enumerate(self.genes):
-            if gene == target[i]:
-                score += 1
+        score = sum(g == t for g, t in zip(self.genes, target))
         self.fitness = score / len(target)
 
     def crossover(self, partner: 'DNA') -> 'DNA':
@@ -27,7 +24,7 @@ class DNA:
         child.genes[midpoint:] = partner.genes[midpoint:]
         return child
 
-    def mutate(self, mutationrate):
+    def mutate(self, mutationrate) -> None:
         '''Mutation'''
         for i in range(len(self.genes)):
             if random(1) < mutationrate:

@@ -1,11 +1,13 @@
 # https://natureofcode.com/genetic-algorithms/#coding-the-genetic-algorithm
 
-from DNA import DNA
+from dna import DNA
+from population import Population
 
 mutationrate = 0.01            # Mutation rate
 populationsize = 150           # Population size
-population = []                # Population array
+population = []                # Population list
 target = "to be or not to be"  # Target phrase
+
 
 def setup():
     global population
@@ -16,8 +18,7 @@ def setup():
         population.append(DNA(len(target)))
 
 
-def draw():
-    # Step 2: Selection
+def draw():  # Step 2: Selection
 
     for phrase in population:  # Step 2a: Calculate fitness.
         phrase.calculate_fitness(target)
@@ -43,6 +44,30 @@ def draw():
         population[i] = child
 
         # Step 4: Repetition. Go back to the beginning of draw()!
+
+
+
+    
+
+    background(255)
+    fill(0)
+    #text_font('Courier')
+    text_size(12)
+    text('Best phrase:', 10, 32)
+    text_size(24)
+    text('answer', 10, 64)
+#     let statstext =
+#     'total generations:     ' + population.getGenerations() + '\n'
+#     statstext +=
+#     'average fitness:       ' + nf(population.getAverageFitness(), 0, 2) + '\n'
+#     statstext += 'total population:      ' + popmax + '\n'
+#     statstext += 'mutation rate:         ' + floor(mutationRate * 100) + '%'
+# 
+#     textSize(12)
+#     text(statstext, 10, 96)
+#     textSize(8)
+#     text(population.allPhrases(), width / 2, 24)
+
 
 
 def key_pressed():

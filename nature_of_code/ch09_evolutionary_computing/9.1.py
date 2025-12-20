@@ -1,107 +1,50 @@
 # https://natureofcode.com/genetic-algorithms/#coding-the-genetic-algorithm
 
-population = []  # A list for the population of elements
-target = "cat" #"to be or not to be"
-mutationrate = 0.01
+from DNA import DNA
 
-
-class DNA:
-    """Represents a DNA sequence of random characters."""
-
-    def __init__(self, length: int):
-        self.genes = []  # The individual genes are stored in an array.
-        self.fitness = 0  # Add a variable to track fitness.
-
-        for _ in range(length):  # There are length genes.
-            # Each gene is a random character.
-            self.genes.append(self.random_character())
-
-    def calculate_fitness(self, target: str):
-        """Compute fitness as a percentage of correct characters."""
-        score = 0
-        
-        for i, gene in enumerate(self.genes):
-            if gene == target[i]:
-                score += 1
-
-        self.fitness = score / len(target)
-
-    def random_character(self) -> str:
-        """Return a random character (letter, number, symbol, space, and so forth)."""
-        c = floor(random(32, 127))
-        return chr(c)
-
-    def crossover(self, partner: 'DNA'):
-        # The child is a new instance of DNA.
-        # (Note that the genes are generated randomly in the DNA constructor,
-        # but the crossover method will override the array.)
-        child = DNA(len(self.genes))
-        
-        # Pick a random midpoint in the genes array.
-        midpoint = floor(random(len(self.genes)))
-
-        # Before the midpoint, take genes from this DNA.
-        child.genes[:midpoint] = self.genes[:midpoint]
-        # After the midpoint, take from the partner DNA.
-        child.genes[midpoint:] = partner.genes[midpoint:]
-
-        return child
-
-    def mutate(self):
-        for i, _ in enumerate(self.genes):  # Look at each gene in the array.
-            # Check a random number against the mutation rate.
-            if random(1) < mutationrate:
-                # Mutation means choosing a new random character.
-                self.genes[i] = self.random_character()
-            
+mutationrate = 0.01            # Mutation rate
+populationsize = 150           # Population size
+population = []                # Population array
+target = "to be or not to be"  # Target phrase
 
 def setup():
-    """Initialize each element of the population;
-    100 and 18 are hardcoded for now as the population size and length of the genes array."""
     global population
+    size(640, 360)
 
-#     for _ in range(100):
-#         population.append(DNA(18))
-    population.append(DNA(3))  #------------------------------------------------
-    population.append(DNA(3))  #------------------------------------------------
-    population.append(DNA(3))  #------------------------------------------------
-    population[0].genes = list('cat')  #----------------------------------------
-    population[1].genes = list('gag')  #----------------------------------------
+    # Step 1: Initialization
+    for _ in range(populationsize):
+        population.append(DNA(len(target)))
 
 
 def draw():
-    for phrase in population:
+    # Step 2: Selection
+
+    for phrase in population:  # Step 2a: Calculate fitness.
         phrase.calculate_fitness(target)
 
-    matingpool = []  # Start with an empty mating pool.
+    matingpool = []  # Step 2b: Build the mating pool.
 
     for phrase in population:
-        """n is equal to fitness times 100. 100 is an arbitrary way to scale the
-        percentage of fitness to a larger integer value."""
-
+        # Add each member n times according to its fitness score.
         n = floor(phrase.fitness * 100)
-        
-        print(phrase.genes); print(n)  #----------------------------------------
-
         for _ in range(n):
-            """Add each member of the population to the mating pool n times."""
             matingpool.append(phrase)
 
-    for m in matingpool:  #-----------------------------------------------------
-        print(m.genes)    #-----------------------------------------------------
+    for i, _ in enumerate(population):  # Step 3: Reproduction
+        parenta = random_choice(matingpool)
+        parentb = random_choice(matingpool)
 
-    parenta = random_choice(matingpool)
-    parentb = random_choice(matingpool)
+        child = parenta.crossover(parentb)  # Step 3a: Crossover
+        child.mutate(mutationrate)  # Step 3b: Mutation
+        
+        ''' Note that you are overwriting the population with the new children.
+        When draw() loops, you will perform all the same steps with the new
+        population of children.'''
+        population[i] = child
 
-    child = parenta.crossover(parentb)  # A function for crossover
-    child.mutate()  # A function for mutation
+        # Step 4: Repetition. Go back to the beginning of draw()!
 
-
-
-
-    no_loop()
 
 def key_pressed():
     if key == 'x':
         exit_sketch()
-    

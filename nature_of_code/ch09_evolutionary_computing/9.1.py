@@ -80,7 +80,7 @@ def display_progress():
     text(phrasestext, width / 2, 24)
     
     text_size(10)
-    text('(Z) advance frame\n(X) run continuous\n(C) pause\n(Q) quit', 10, 300)
+    text('(C) pause\n(Z) advance frame\n(X) run continuous\n(Q) quit', 10, 300)
 
     if best == TARGET:  # Stop once the phrase is solved
         no_loop()
@@ -88,7 +88,7 @@ def display_progress():
 
 def key_pressed():
     '''Add keys to advance frame, run continuous, pause, quit'''
+    if key == 'c': no_loop()
     if key == 'z': redraw()
     if key == 'x': loop()
-    if key == 'c': no_loop()
     if key == 'q': exit_sketch()

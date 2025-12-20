@@ -31,6 +31,6 @@ class DNA:
                 self.genes[i] = self.random_character()
 
     def random_character(self) -> str:
-        '''Return a random character (letter, number, symbol, space, and so forth).'''
+        '''Return a random character (letter, number, symbol, space, etc.).'''
         c = floor(random(32, 127))
         return chr(c)

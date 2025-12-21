@@ -28,17 +28,43 @@ class Rocket:
 
 
 class DNA:
-    def __init__(length: int):
-        self.genes = []
-        self.genes = [Py5Vector() for _ in range(length)]
+    def __init__(self, length: int):
+        '''The genetic sequence is an array of vectors.'''
+        self.max_force = .1  # How strong can the thrusters be?
+        # Notice that the length of genes is equal to a global lifeSpan variable.
+        self.genes = [
+          # Scale the vectors randomly, but not stronger than the maximum force.
+          Py5Vector2D().random() * random(0, self.max_force)
+          for _ in range(length)
+        ]
+
     
 
 
 
 def setup():
     size(500, 500)
-    a = Rocket(1, 2.5)
+    a = DNA(5)
+    print(a.genes)
+    
 
 
 def draw():
     print(frame_count)
+
+
+
+
+
+
+
+
+
+    no_loop()
+
+def key_pressed():
+    '''Handle keyboard controls for stepping, looping, pausing, and quitting.'''
+    if key == 'c': no_loop()
+    if key == 'z': redraw()
+    if key == 'x': loop()
+    if key == 'q': exit_sketch()

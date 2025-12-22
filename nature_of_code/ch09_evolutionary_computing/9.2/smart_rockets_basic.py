@@ -5,26 +5,24 @@ from population import Population
 from rocket import Rocket
 
 MUTATION_RATE = .01   # Per-gene mutation probability.
-POPULATION_SIZE = 50//2  # Number of individuals in the population.
-LIFE_SPAN = 250/4       # How many frames does a generation live for?
+POPULATION_SIZE = 50  # Number of individuals in the population.
+LIFE_SPAN = 250       # How many frames does a generation live for?
 life_counter = 0      # Keep track of the life span.
 
 
 def setup():
     global population, target
-    size(640, 240*3)
+    size(640, 240)
     target = Py5Vector2D(width / 2, 24)
     # Step 1: Create the population.
     # Try different values for the mutation rate and population size.
-    xy = (width / 2, height -200)
+    xy = (width / 2, height + 20)
     population = Population(MUTATION_RATE, POPULATION_SIZE, xy)
 
 
 def draw():
     global life_counter, target
     background(255)
-    for p in population.population: print(f'{p.position}')
-    print('\n---\n')
     # The revised GA
     if life_counter < LIFE_SPAN:
         # Step 2: The rockets live lives until life_counter reaches LIFE_SPAN.

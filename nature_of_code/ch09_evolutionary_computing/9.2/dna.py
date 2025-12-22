@@ -9,8 +9,10 @@ class DNA:
         self.genes = [
           # Scale the vectors randomly, but not stronger than the maximum force.
           Py5Vector2D().random() * random(0, self.max_force)
-          for _ in range(life_span)
+          for _ in range(250//4 )
         ]
+        print(len(self.genes))
+        print('-----------')
 
     def crossover(self, partner: 'DNA') -> 'DNA':
         '''Crossover.'''

@@ -7,9 +7,9 @@ class DNA:
         self.max_force = 0.1  # How strong can the thrusters be?
         # Notice that the length of genes is equal to global LIFE_SPAN variable.
         self.genes = [
-            # Scale the vectors randomly, but not stronger than the maximum force.
-            Py5Vector2D().random() * random(0, self.max_force)
-            for _ in range(life_span)
+          # Scale the vectors randomly, but not stronger than the maximum force.
+          Py5Vector2D().random() * random(0, self.max_force)
+          for _ in range(life_span)
         ]
 
     def crossover(self, partner: 'DNA') -> 'DNA':
@@ -26,5 +26,5 @@ class DNA:
             if random(1) < mutation_rate:
                 angle = random(TWO_PI)
                 self.genes[i] = Py5Vector2D.from_heading(angle).set_mag(
-                    random(self.max_force)
+                  random(self.max_force)
                 )

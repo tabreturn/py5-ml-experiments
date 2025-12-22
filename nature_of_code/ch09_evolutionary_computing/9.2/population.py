@@ -14,7 +14,7 @@ class Population:
         self.x, self.y = xy
         # Array to hold the current population.
         self.population = [
-            Rocket(self.x, self.y, DNA(life_span)) for _ in range(length)
+          Rocket(self.x, self.y, DNA(life_span)) for _ in range(length)
         ]
 
     def live(self) -> None:

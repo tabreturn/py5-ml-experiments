@@ -47,10 +47,10 @@ def draw():
     text_font(monospace)
     text_size(11)
     text(
-        f'Generation #: {population.generations}\n'
-        f'Cycles left: {LIFE_SPAN - life_counter}',
-        10,
-        20,
+      f'Generation #: {population.generations}\n'
+      'Cycles left: {LIFE_SPAN - life_counter}',
+      10,
+      20,
     )
     text('(C) pause\n(Z) advance frame\n(X) run continuous\n(Q) quit', 10, 187)
 

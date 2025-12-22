@@ -25,7 +25,7 @@ class Rocket:
         distance = self.position.dist(target)
         # Fitness is inversely proportional to distance.
         self.fitness = 1 / distance  # linear
-    #       self.fitness = 1 / (distance * distance)  # quadratic
+#        self.fitness = 1 / (distance * distance)  # quadratic
 
     def run(self) -> None:
         """# Apply a force from the genes array."""

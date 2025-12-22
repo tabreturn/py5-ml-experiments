@@ -63,17 +63,17 @@ def display_progress():
 
     avgfitness = sum(phrase.fitness for phrase in population) / len(population)
     statstext = (
-        f'total generations:     {frame_count}\n'
-        f'average fitness:       {avgfitness:.2f}\n'
-        f'total population:      {POPULATION_SIZE}\n'
-        f'mutation rate:         {floor(MUTATION_RATE * 100)}%'
+      f'total generations:     {frame_count}\n'
+      f'average fitness:       {avgfitness:.2f}\n'
+      f'total population:      {POPULATION_SIZE}\n'
+      f'mutation rate:         {floor(MUTATION_RATE * 100)}%'
     )
     text_size(12)
     text(statstext, 10, 96)
 
     phrasestext = '| ' + '| '.join(
-        ''.join(population[i].genes) + ('\n' if i % 3 == 2 else ' ')
-        for i in range(min(len(population), 99))
+      ''.join(population[i].genes) + ('\n' if i % 3 == 2 else ' ')
+      for i in range(min(len(population), 99))
     )
     text_size(8)
     text(phrasestext, width / 2, 24)

@@ -11,8 +11,9 @@ life_counter = 0      # Keep track of the life span.
 
 
 def setup():
-    global population, target
+    global monospace, population, target
     size(640, 240)
+    monospace = create_font('DejaVu Sans Mono', 32)
     target = Py5Vector2D(width / 2, 24)
     # Step 1: Create the population.
     # Try different values for the mutation rate and population size.
@@ -43,14 +44,15 @@ def draw():
     circle(target.x, target.y, 24)
     # Display some info.
     fill(0)
-    no_stroke()
+    text_font(monospace)
+    text_size(11)
     text(
         f'Generation #: {population.generations}\n'
         f'Cycles left: {LIFE_SPAN - life_counter}',
         10,
         20,
     )
-    text('(C) pause\n(Z) advance frame\n(X) run continuous\n(Q) quit', 10, 180)
+    text('(C) pause\n(Z) advance frame\n(X) run continuous\n(Q) quit', 10, 187)
 
 
 def mouse_pressed():

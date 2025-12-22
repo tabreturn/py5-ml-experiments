@@ -36,10 +36,10 @@ def draw():
 
     # Step 3: Reproduction.
     for i, _ in enumerate(population):
-        parenta = random_choice(mating_pool)
-        parentb = random_choice(mating_pool)
+        parent_a = random_choice(mating_pool)
+        parent_b = random_choice(mating_pool)
 
-        child = parenta.crossover(parentb)   # Step 3a: Crossover.
+        child = parent_a.crossover(parent_b)   # Step 3a: Crossover.
         child.mutate(MUTATION_RATE)          # Step 3b: Mutation.
         
         '''You overwrite the population with the new children. On the next call

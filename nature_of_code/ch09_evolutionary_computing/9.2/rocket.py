@@ -1,17 +1,17 @@
 from py5 import PI, Py5Vector2D, random
+
 # py5 drawing methods for rendering rockets
 from py5 import (
-  stroke, stroke_weight, push, translate, rotate,
-  rect_mode, fill, rect, begin_shape, vertex, end_shape, pop,
-  CENTER, TRIANGLES, CLOSE,
+    stroke, stroke_weight, push, translate, rotate,  rect_mode, fill, rect,
+    begin_shape, vertex, end_shape, pop, CENTER, TRIANGLES, CLOSE
 )
 from dna import DNA
 
 
 class Rocket:
-    
+
     def __init__(self, x: float, y: float, dna: DNA):
-        '''A rocket has three vectors: position, velocity, and acceleration.'''
+        """A rocket has three vectors: position, velocity, and acceleration."""
         self.acceleration = Py5Vector2D()
         self.velocity = Py5Vector2D()
         self.position = Py5Vector2D(x, y)
@@ -21,37 +21,30 @@ class Rocket:
         self.gene_counter = 0  # A counter for the DNA genes array.
 
     def calculate_fitness(self, target: Py5Vector2D) -> None:
-        '''How close did the rocket get?'''
+        """How close did the rocket get?"""
         distance = self.position.dist(target)
         # Fitness is inversely proportional to distance.
         self.fitness = 1 / distance  # linear
-#       self.fitness = 1 / (distance * distance)  # quadratic
+    #       self.fitness = 1 / (distance * distance)  # quadratic
 
     def run(self) -> None:
-        '''# Apply a force from the genes array.'''
-        
-        # WHY?
-        #if self.gene_counter < len(self.dna.genes):
-        #    self.apply_force(self.dna.genes[self.gene_counter])
-        #    self.gene_counter += 1
+        """# Apply a force from the genes array."""
         self.apply_force(self.dna.genes[self.gene_counter])
-        #self.gene_counter += 1
-        #print(self.gene_counter)
-        
+        self.gene_counter += 1
         self.update()  # Update the rocket's physics.
         self.show()
 
     def apply_force(self, force: Py5Vector2D) -> None:
-        '''Accumulate forces into acceleration (Newton's second law).'''
+        """Accumulate forces into acceleration (Newton's second law)."""
         self.acceleration += force
 
     def update(self) -> None:
-        '''A simple physics engine (Euler integration).'''
+        """A simple physics engine (Euler integration)."""
         # Velocity changes according to acceleration.
         self.velocity += self.acceleration
         # Position changes according to velocity.
         self.position += self.velocity
-        self.acceleration * 0
+        self.acceleration *= 0
 
     def show(self) -> None:
         angle = self.velocity.heading + PI / 2

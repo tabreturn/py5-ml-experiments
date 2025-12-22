@@ -4,32 +4,32 @@ from rocket import Rocket
 
 
 class Population:
-    def __init__(self, mutation: float, length: int, xy: tuple[float, float]):
-        '''Population has variables to keep track of the mutation rate, current
-        population array, and number of generations.'''
+    # Needs "life_span", "xy" because Python modules have isolated namespaces.
+    # (p5.js sketches share a single global scope)
+    def __init__(self, mutation: float, length: int, life_span: int, xy: tuple):
+        """Population has variables to keep track of the mutation rate, current
+        population array, and number of generations."""
         self.mutation_rate = mutation  # Mutation rate.
         self.generations = 0  # Number of generations
         self.x, self.y = xy
         # Array to hold the current population.
         self.population = [
-          Rocket(self.x, self.y, DNA(length))
-          for _ in range(length)
+            Rocket(self.x, self.y, DNA(life_span)) for _ in range(length)
         ]
 
     def live(self) -> None:
-        '''The run() method takes care of the simulation, updates the rocket's
-        position, and draws it to the canvas.'''
+        """The run() method takes care of the simulation, updates the rocket's
+        position, and draws it to the canvas."""
         for rocket in self.population:
             rocket.run()
 
     def fitness(self, target: Py5Vector2D) -> None:
-        '''py5 needs "target" because Python modules have isolated namespaces;
-        p5.js sketches share a single global scope.'''
+        """Needs "target" because Python modules have isolated namespaces."""
         for rocket in self.population:
             rocket.calculate_fitness(target)
 
     def selection(self) -> None:
-        '''The selection method normalizes all the fitness values.'''
+        """The selection method normalizes all the fitness values."""
         # Sum all the fitness values.
         total_fitness = sum(rocket.fitness for rocket in self.population)
         # Divide by the total to normalize the fitness values.

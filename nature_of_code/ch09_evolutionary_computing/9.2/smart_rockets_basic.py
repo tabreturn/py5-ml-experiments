@@ -4,7 +4,7 @@ from dna import DNA
 from population import Population
 from rocket import Rocket
 
-MUTATION_RATE = .01   # Per-gene mutation probability.
+MUTATION_RATE = 0.01  # Per-gene mutation probability.
 POPULATION_SIZE = 50  # Number of individuals in the population.
 LIFE_SPAN = 250       # How many frames does a generation live for?
 life_counter = 0      # Keep track of the life span.
@@ -17,7 +17,7 @@ def setup():
     # Step 1: Create the population.
     # Try different values for the mutation rate and population size.
     xy = (width / 2, height + 20)
-    population = Population(MUTATION_RATE, POPULATION_SIZE, xy)
+    population = Population(MUTATION_RATE, POPULATION_SIZE, LIFE_SPAN, xy)
 
 
 def draw():
@@ -45,24 +45,24 @@ def draw():
     fill(0)
     no_stroke()
     text(
-      f'Generation #: {population.generations}\n'
-      f'Cycles left: {LIFE_SPAN - life_counter}',
-      10, 20
+        f'Generation #: {population.generations}\n'
+        f'Cycles left: {LIFE_SPAN - life_counter}',
+        10,
+        20,
     )
-    text_size(10)
-    text('(C) pause\n(Z) advance frame\n(X) run continuous\n(Q) quit', 10, 190)
+    text('(C) pause\n(Z) advance frame\n(X) run continuous\n(Q) quit', 10, 180)
 
 
 def mouse_pressed():
-    '''Move the target if the mouse is clicked. Rockets adapt to new target.'''
+    """Move the target if the mouse is clicked. Rockets adapt to new target."""
     global target
     target.x = mouse_x
     target.y = mouse_y
 
 
 def key_pressed():
-    '''Handle keyboard controls for stepping, looping, pausing, and quitting.'''
-    if key == 'c': no_loop()
-    if key == 'z': redraw()
-    if key == 'x': loop()
-    if key == 'q': exit_sketch()
+    """Handle keyboard controls for stepping, looping, pausing, and quitting."""
+    if key == "c": no_loop()
+    if key == "z": redraw()
+    if key == "x": loop()
+    if key == "q": exit_sketch()

@@ -2,7 +2,7 @@
 
 from dna import DNA
 
-MUTATION_RATE = 0.01           # Per-gene mutation probability.
+MUTATION_RATE = .01           # Per-gene mutation probability.
 POPULATION_SIZE = 150          # Number of individuals in the population.
 TARGET = 'to be or not to be'  # Target phrase to evolve toward.
 

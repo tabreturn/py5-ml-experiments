@@ -4,44 +4,60 @@ from dna import DNA
 from population import Population
 from rocket import Rocket
 
-LIFE_SPAN = 500
-life_counter = 0
+MUTATION_RATE = .01   # Per-gene mutation probability.
+POPULATION_SIZE = 50//2  # Number of individuals in the population.
+LIFE_SPAN = 250/4       # How many frames does a generation live for?
+life_counter = 0      # Keep track of the life span.
 
 
 def setup():
     global population, target
-    size(500, 500)
+    size(640, 240*3)
+    target = Py5Vector2D(width / 2, 24)
     # Step 1: Create the population.
     # Try different values for the mutation rate and population size.
-    population = Population(.01, 50)
+    xy = (width / 2, height -200)
+    population = Population(MUTATION_RATE, POPULATION_SIZE, xy)
 
 
 def draw():
-    global life_counter
+    global life_counter, target
     background(255)
+    for p in population.population: print(f'{p.position}')
+    print('\n---\n')
     # The revised GA
     if life_counter < LIFE_SPAN:
-        # Step 2: The rockets live until life_counter reaches LIFE_SPAN.
+        # Step 2: The rockets live lives until life_counter reaches LIFE_SPAN.
         population.live()
         life_counter += 1
     else:
         # When lifeSpan is reached, reset lifeCounter and evolve the next gen.
         # (steps 3 and 4, selection and reproduction).
         life_counter = 0
-        population.fitness()
+        population.fitness(target)
         population.selection()
         population.reproduction()
-    
 
-
-
-
-    print(frame_count)
+    # Draw the target position.
+    fill(127)
+    stroke(0)
+    stroke_weight(2)
+    circle(target.x, target.y, 24)
+    # Display some info.
+    fill(0)
+    no_stroke()
+    text(
+      f'Generation #: {population.generations}\n'
+      f'Cycles left: {LIFE_SPAN - life_counter}',
+      10, 20
+    )
+    text_size(10)
+    text('(C) pause\n(Z) advance frame\n(X) run continuous\n(Q) quit', 10, 190)
 
 
 def mouse_pressed():
-    '''Move the target if the mouse is clicked.
-    The rockets will adapt to the new target.'''
+    '''Move the target if the mouse is clicked. Rockets adapt to new target.'''
+    global target
     target.x = mouse_x
     target.y = mouse_y
 

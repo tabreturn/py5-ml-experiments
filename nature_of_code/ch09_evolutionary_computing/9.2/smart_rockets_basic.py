@@ -48,7 +48,7 @@ def draw():
     text_size(11)
     text(
       f'Generation #: {population.generations}\n'
-      'Cycles left: {LIFE_SPAN - life_counter}',
+      f'Cycles left: {LIFE_SPAN - life_counter}',
       10,
       20,
     )

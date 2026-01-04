@@ -12,12 +12,12 @@ class Rocket:
 
     def __init__(self, x: float, y: float, dna: DNA):
         """A rocket has three vectors: position, velocity, and acceleration."""
-        self.acceleration = Py5Vector2D()
-        self.velocity = Py5Vector2D()
-        self.position = Py5Vector2D(x, y)
-        self.r = 4  # Size.
-        self.fitness = 0  # A rocket has fitness.
         self.dna = dna  # A rocket has DNA.
+        self.fitness = 0  # A rocket has fitness.
+        self.position = Py5Vector2D(x, y)
+        self.velocity = Py5Vector2D()
+        self.acceleration = Py5Vector2D()
+        self.r = 4  # Size.
         self.gene_counter = 0  # A counter for the DNA genes array.
 
     def calculate_fitness(self, target: Py5Vector2D) -> None:
@@ -30,7 +30,7 @@ class Rocket:
     def run(self) -> None:
         """# Apply a force from the genes array."""
         self.apply_force(self.dna.genes[self.gene_counter])
-        self.gene_counter += 1
+        self.gene_counter += 1  # Go to the next force in the genes array.
         self.update()  # Update the rocket's physics.
         self.show()
 

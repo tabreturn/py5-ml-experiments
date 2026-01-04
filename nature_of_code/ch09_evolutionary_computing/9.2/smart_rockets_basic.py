@@ -18,6 +18,7 @@ def setup():
     # Step 1: Create the population.
     # Try different values for the mutation rate and population size.
     xy = (width / 2, height + 20)
+    # The population.
     population = Population(MUTATION_RATE, POPULATION_SIZE, LIFE_SPAN, xy)
 
 

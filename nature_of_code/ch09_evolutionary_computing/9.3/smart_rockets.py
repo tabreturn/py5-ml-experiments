@@ -9,22 +9,22 @@ MUTATION_RATE = 0.01  # Per-gene mutation probability.
 POPULATION_SIZE = 50  # Number of individuals in the population.
 LIFE_SPAN = 250       # How many frames does a generation live for?
 life_counter = 0      # Keep track of the life span.
-# Create the obstacle course
-obstacles = [
-  Obstacle(width / 2 - 75, height / 2, 150, 10)
-]
 
 
 def setup():
-    global monospace, population, target
+    global monospace, obstacles, population, target
     size(640, 240)
     monospace = create_font('DejaVu Sans Mono', 32)
-    target = Py5Vector2D(width / 2, 24)
+    target = Obstacle(width / 2 - 12, 24, 24, 24)
     # Step 1: Create the population.
     # Try different values for the mutation rate and population size.
-    xy = (width / 2, height + 20)
+    xy = (width / 2, height - 20)
     # The population.
     population = Population(MUTATION_RATE, POPULATION_SIZE, LIFE_SPAN, xy)
+    # Create the obstacle course
+    obstacles = [
+      Obstacle(width / 2 - 75, height / 2, 150, 10)
+    ]
 
 
 def draw():
@@ -44,10 +44,12 @@ def draw():
         population.reproduction()
 
     # Draw the target position.
-    fill(127)
-    stroke(0)
-    stroke_weight(2)
-    circle(target.x, target.y, 24)
+    target.show()
+
+    # Draw the obstacles.
+    for obstacle in obstacles:
+        obstacle.show()
+
     # Display some info.
     fill(0)
     text_font(monospace)
@@ -64,8 +66,8 @@ def draw():
 def mouse_pressed():
     """Move the target if the mouse is clicked. Rockets adapt to new target."""
     global target
-    target.x = mouse_x
-    target.y = mouse_y
+    target.position.x = mouse_x
+    target.position.y = mouse_y
 
 
 def key_pressed():

@@ -21,16 +21,39 @@ class Rocket:
         self.r = 4  # Size.
         self.gene_counter = 0  # A counter for the DNA genes array.
         self.hit_obstacle = False  # Am I stuck on an obstacle?
+        self.record_distance = float('inf')  # High number to be beat instantly.
+        self.hit_target = False  # Did I reach the target.
+        self.finish_counter = 0  # Count how long it takes to reach target.
 
     def calculate_fitness(self, target: Py5Vector2D) -> None:
+        """Reward finishing faster and getting close"""
+        # Fitness is inversely proportional to distance.
+#        distance = self.position.dist(target)
+#        self.fitness = 1 / distance  # linear
+#        self.fitness = 1 / (distance * distance)  # quadratic
+        # Let's try to the power of 4 instead of squared!
+        self.fitness = 1 / (self.finish_counter * self.record_distance)
+        self.fitness **= 4
+        # Lose 90% of fitness for hitting an obstacle.
+        if self.hit_obstacle:
+            self.fitness *= 0.1
+        # Double the fitness for finishing!
+        if self.hit_target:
+            self.fitness *= 2;
+
+    def check_target():
         """How close did the rocket get?"""
         distance = self.position.dist(target)
-        # Fitness is inversely proportional to distance.
-#        self.fitness = 1 / distance  # linear
-        self.fitness = 1 / (distance * distance)  # quadratic
-        # Lose 90% of fitness hitting an obstacle.
-        if this.hit_obstacle:
-            self.fitness *= 0.1
+        # Check whether the distance is closer than the record distance.
+        if (distance < self.record_distance):
+            # If it is, set a new record.
+            self.record_distance = distance
+        # If the object reaches the target, set a Boolean flag to true.
+        if target.contains(self.position):
+            this.hit_target = True
+        # Increase the finish counter if the rocket hasn't hit the target.
+        if not self.hit_target:
+            self.finish_counter += 1
 
     def run(self, obstacles: list[Obstacle]) -> None:
         """# Apply a force from the genes array."""

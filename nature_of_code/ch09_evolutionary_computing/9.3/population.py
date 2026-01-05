@@ -18,11 +18,16 @@ class Population:
         ]
 
     def live(self, obstacles, target: Py5Vector2D) -> None:
+        # Needs "target" because Python modules have isolated namespaces.
         """The run() method takes care of the simulation, updates the rocket's
         position, and draws it to the canvas."""
         for rocket in self.population:
             rocket.check_target(target)
             rocket.run(obstacles)
+
+    def target_reached(self) -> bool:
+        """Did anything finish?"""
+        return any(rocket.hit_target for rocket in self.population)
 
     def fitness(self, target: Py5Vector2D) -> None:
         # Needs "target" because Python modules have isolated namespaces.

@@ -5,10 +5,11 @@ from obstacle import Obstacle
 from population import Population
 from rocket import Rocket
 
-MUTATION_RATE = 0.01  # Per-gene mutation probability.
-POPULATION_SIZE = 50  # Number of individuals in the population.
-LIFE_SPAN = 250       # How many frames does a generation live for?
-life_counter = 0      # Keep track of the life span.
+MUTATION_RATE = 0.01     # Per-gene mutation probability.
+POPULATION_SIZE = 50     # Number of individuals in the population.
+LIFE_SPAN = 250          # How many frames does a generation live for?
+life_counter = 0         # Keep track of the life span.
+record_time = LIFE_SPAN  # Fastest time to target.
 
 
 def setup():
@@ -28,15 +29,19 @@ def setup():
 
 
 def draw():
-    global life_counter, target
+    global life_counter, target, record_time
     background(255)
     # The revised GA
     if life_counter < LIFE_SPAN:
         # Step 2: The rockets live lives until life_counter reaches LIFE_SPAN.
         population.live(obstacles, target)
-        life_counter += 1
+
+        if population.target_reached() and life_counter < record_time:
+            record_time = life_counter
+        else:
+            life_counter += 1
     else:
-        # When lifeSpan is reached, reset lifeCounter and evolve the next gen.
+        # When LIFE_SPAN is reached, reset life_counter and evolve the next gen.
         # (steps 3 and 4, selection and reproduction).
         life_counter = 0
         population.fitness(target)
@@ -56,7 +61,8 @@ def draw():
     text_size(11)
     text(
       f'Generation #: {population.generations}\n'
-      f'Cycles left: {LIFE_SPAN - life_counter}',
+      f'Cycles left: {LIFE_SPAN - life_counter}\n'
+      f'Record cycles: {record_time}',
       10,
       20,
     )

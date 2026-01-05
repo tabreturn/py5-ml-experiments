@@ -17,10 +17,11 @@ class Population:
           Rocket(self.x, self.y, DNA(life_span)) for _ in range(length)
         ]
 
-    def live(self, obstacles) -> None:
+    def live(self, obstacles, target: Py5Vector2D) -> None:
         """The run() method takes care of the simulation, updates the rocket's
         position, and draws it to the canvas."""
         for rocket in self.population:
+            rocket.check_target(target)
             rocket.run(obstacles)
 
     def fitness(self, target: Py5Vector2D) -> None:

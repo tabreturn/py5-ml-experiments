@@ -41,26 +41,27 @@ class Rocket:
         if self.hit_target:
             self.fitness *= 2;
 
-    def check_target():
+    def check_target(self, target: Py5Vector2D) -> None:
         """How close did the rocket get?"""
-        distance = self.position.dist(target)
+        distance = self.position.dist(target.position)
         # Check whether the distance is closer than the record distance.
         if (distance < self.record_distance):
             # If it is, set a new record.
             self.record_distance = distance
         # If the object reaches the target, set a Boolean flag to true.
         if target.contains(self.position):
-            this.hit_target = True
+            self.hit_target = True
         # Increase the finish counter if the rocket hasn't hit the target.
         if not self.hit_target:
             self.finish_counter += 1
 
     def run(self, obstacles: list[Obstacle]) -> None:
         """# Apply a force from the genes array."""
-        if not self.hit_obstacle:  # Stop the rocket if it has hit an obstacle.
+        # Stop the rocket if it has hit an obstacle.
+        if not self.hit_obstacle and not self.hit_target:
             self.apply_force(self.dna.genes[self.gene_counter])
             self.gene_counter += 1  # Go to the next force in the genes array.
-            self.update()  # Update the rocket's physics.
+            self.update()
             # Check whether the rocket has hit an obstacle.
             self.check_obstacles(obstacles)
         self.show()

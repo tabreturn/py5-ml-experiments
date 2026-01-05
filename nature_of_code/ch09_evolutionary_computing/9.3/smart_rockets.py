@@ -33,7 +33,7 @@ def draw():
     # The revised GA
     if life_counter < LIFE_SPAN:
         # Step 2: The rockets live lives until life_counter reaches LIFE_SPAN.
-        population.live(obstacles)
+        population.live(obstacles, target)
         life_counter += 1
     else:
         # When lifeSpan is reached, reset lifeCounter and evolve the next gen.

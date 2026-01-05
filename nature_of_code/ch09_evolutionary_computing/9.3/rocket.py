@@ -39,13 +39,13 @@ class Rocket:
             self.fitness *= 0.1
         # Double the fitness for finishing!
         if self.hit_target:
-            self.fitness *= 2;
+            self.fitness *= 2
 
     def check_target(self, target: Py5Vector2D) -> None:
         """How close did the rocket get?"""
         distance = self.position.dist(target.position)
         # Check whether the distance is closer than the record distance.
-        if (distance < self.record_distance):
+        if distance < self.record_distance:
             # If it is, set a new record.
             self.record_distance = distance
         # If the object reaches the target, set a Boolean flag to true.
@@ -103,6 +103,5 @@ class Rocket:
     def check_obstacles(self, obstacles: list[Obstacle]) -> None:
         """Checks whether a rocket has hit an obstacle."""
         self.hit_obstacle = any(
-          obstacle.contains(self.position)
-          for obstacle in obstacles
+          obstacle.contains(self.position) for obstacle in obstacles
         )

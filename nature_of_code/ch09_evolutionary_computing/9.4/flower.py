@@ -40,7 +40,7 @@ class Flower():
         push()
         translate(self.x, self.y)
         # Draw the bounding box.
-        fill(0, .25) if self.rollover_on else no_fill()
+        fill(0, 0.25) if self.rollover_on else no_fill()
         stroke(0)
         stroke_weight(0.5)
         rect_mode(CENTER)
@@ -72,6 +72,6 @@ class Flower():
         """Increment fitness if mouse is rolling over flower."""
         if self.bounding_box.contains(mx, my):
             self.rollover_on = True
-            self.fitness += .25
+            self.fitness += 0.25
         else:
             self.rollover_on = False

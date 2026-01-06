@@ -5,7 +5,7 @@ from rectangle import Rectangle
 
 POPULATION_SIZE = 8  # This is a very small population!
 # Pretty high mutation. Our population is small; we need to enforce variety.
-MUTATION_RATE = .05
+MUTATION_RATE = 0.05
 
 
 def setup():
@@ -15,22 +15,24 @@ def setup():
     color_mode(RGB, 1)
     # Create the population.
     population = Population(MUTATION_RATE, POPULATION_SIZE)
-    # A p5.js-'like' button
-    button = Rectangle(10, 10, 158, 30)
-    text_font(monospace); text_size(11); fill(0)
-    text('evolve new generation', button.x + 10, button.y + 19)
-    no_fill(); rect(button.x, button.y, button.width, button.height)
+    # A p5.js-'like' button.
+    button = Rectangle(10, 10, 160, 15)
 
 
 def mouse_pressed():
-    # For the p5.js-'like' button
+    # For the p5.js-'like' button.
     if button.contains(mouse_x, mouse_y):
         next_generation()
 
 
 def draw():
     background(1)
-    population.show()  # Draw the flowers.
+    # A p5.js-'like' button.
+    text_font(monospace); text_align(CENTER, CENTER); text_size(11); fill(0)
+    text('evolve new generation', *button.center)
+    no_fill(); rect(button.x, button.y, button.width, button.height)
+    # Draw the flowers.
+    population.show()
     # Check for increasing fitness.
     population.rollover(mouse_x, mouse_y)
     text(f'Generation {population.generations}', 12, height - 40)

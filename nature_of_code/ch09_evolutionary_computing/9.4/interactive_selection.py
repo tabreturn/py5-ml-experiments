@@ -1,6 +1,7 @@
 # https://natureofcode.com/genetic-algorithms/#interactive-selection
 
 from population import Population
+from rectangle import Rectangle
 
 POPULATION_SIZE = 8  # This is a very small population!
 # Pretty high mutation. Our population is small; we need to enforce variety.
@@ -8,21 +9,22 @@ MUTATION_RATE = .05
 
 
 def setup():
-    global monospace, population
+    global button, monospace, population
     size(640, 240)
     monospace = create_font('DejaVu Sans Mono', 32)
     color_mode(RGB, 1)
     # Create the population.
     population = Population(MUTATION_RATE, POPULATION_SIZE)
     # A p5.js-'like' button
+    button = Rectangle(10, 10, 158, 30)
     text_font(monospace); text_size(11); fill(0)
-    text('evolve new generation', 20, 29)
-    no_fill(); rect(10, 10, 158, 30)
+    text('evolve new generation', button.x + 10, button.y + 19)
+    no_fill(); rect(button.x, button.y, button.width, button.height)
 
 
 def mouse_pressed():
     # For the p5.js-'like' button
-    if 10 <= mouse_x <= 168 and 10 <= mouse_y <= 40:
+    if button.contains(mouse_x, mouse_y):
         next_generation()
 
 

@@ -23,7 +23,7 @@ class DNA:
         child.genes[midpoint:] = partner.genes[midpoint:]
         return child
 
-    def mutate(self, mutation_rate) -> None:
+    def mutate(self, mutation_rate: float) -> None:
         """Mutation."""
         for i, gene in enumerate(self.genes):
             if random(1) < mutation_rate:

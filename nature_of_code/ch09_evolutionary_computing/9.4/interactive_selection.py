@@ -16,7 +16,7 @@ def setup():
     # Create the population.
     population = Population(MUTATION_RATE, POPULATION_SIZE)
     # A p5.js-'like' button.
-    button = Rectangle(10, 10, 160, 15)
+    button = Rectangle(10, 10, 150, 20)
 
 
 def mouse_pressed():
@@ -35,7 +35,8 @@ def draw():
     population.show()
     # Check for increasing fitness.
     population.rollover(mouse_x, mouse_y)
-    text(f'Generation {population.generations}', 12, height - 40)
+    text_align(LEFT)
+    text(f'Generation {population.generations}', 12, height - 10)
 
 
 def next_generation():

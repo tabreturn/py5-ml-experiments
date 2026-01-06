@@ -55,7 +55,7 @@ class Population:
             child = parent_a.crossover(parent_b)
             child.mutate(self.mutation_rate)
             # Flower goes in the new population.
-            new_population.append(Flower(child, 40 + i * 80, 120))
+            new_population.append(Flower(child, 40 + _ * 80, 120))
 
         # Now the new population is the current one.
         self.population = new_population

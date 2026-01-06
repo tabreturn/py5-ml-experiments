@@ -1,5 +1,6 @@
 class Rectangle:
     """Re-implementing java.awt.Rectangle (from Processing) for p5.js"""
+
     def __init__(self, x: float, y: float, w: float, h: float):
         self.x = x
         self.y = y
@@ -9,8 +10,8 @@ class Rectangle:
 
     def contains(self, px: float, py: float) -> bool:
         return (
-          px > self.x and
-          px < self.x + self.width and
-          py > self.y and
-          py < self.y + self.height
+          px > self.x
+          and px < self.x + self.width
+          and py > self.y
+          and py < self.y + self.height
         )

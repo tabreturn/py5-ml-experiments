@@ -8,9 +8,7 @@ class Population:
         self.mutation_rate = mutation  # Mutation rate.
         self.generations = 0  # Number of generations
         # Array to hold the current population.
-        self.population = [
-          Flower(DNA(), 40 + _ * 80, 120) for _ in range(length)
-        ]
+        self.population = [Flower(DNA(), 40 + _ * 80, 120) for _ in range(length)]
 
     def show(self) -> None:
         """Display all faces."""
@@ -22,7 +20,7 @@ class Population:
         for flower in self.population:
             flower.rollover(mx, my)
 
-    def weighted_selection(self) -> Flower:
+    def weighted_selection(self) -> DNA:
         # Start with the first element.
         index = 0
         # Pick a starting point.

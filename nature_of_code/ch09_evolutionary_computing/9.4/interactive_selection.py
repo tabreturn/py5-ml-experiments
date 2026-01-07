@@ -15,22 +15,23 @@ def setup():
     color_mode(RGB, 1)
     # Create the population.
     population = Population(MUTATION_RATE, POPULATION_SIZE)
-    # A p5.js-'like' button.
+    # Define a p5.js-'like' button.
     button = Rectangle(10, 10, 150, 20)
 
 
 def mouse_pressed():
-    # For the p5.js-'like' button.
+    # Listen for the p5.js-'like' button.
     if button.contains(mouse_x, mouse_y):
         next_generation()
 
 
 def draw():
     background(1)
-    # A p5.js-'like' button.
+    # Render the p5.js-'like' button.
     text_font(monospace); text_align(CENTER, CENTER); text_size(11); fill(0)
     text('evolve new generation', *button.center)
     no_fill(); rect(button.x, button.y, button.width, button.height)
+
     # Draw the flowers.
     population.show()
     # Check for increasing fitness.

@@ -9,15 +9,24 @@ https://nostarch.com/nature-code
 ### Ch. 09 -- Evolutionary Computing
 
 * 09.01 -- ga_shakespeare: 
-  [py](ch09_evolutionary_computing/09.01) | [js](https://editor.p5js.org/natureofcode/sketches/q4F192JCV)
+  [py](nature_of_code/ch09_evolutionary_computing/09.01) |
+  [js](https://editor.p5js.org/natureofcode/sketches/q4F192JCV)
+
 * 09.02 -- smart_rockets:
-  [py](ch09_evolutionary_computing/09.02) | [js](https://editor.p5js.org/natureofcode/sketches/jzfy_9p1ES)
+  [py](nature_of_code/ch09_evolutionary_computing/09.02) |
+  [js](https://editor.p5js.org/natureofcode/sketches/jzfy_9p1ES)
+
 * 09.03 -- smarter_rockets:
-  [py](ch09_evolutionary_computing/09.03) | [js](https://editor.p5js.org/natureofcode/sketches/565K_KXSA)
+  [py](nature_of_code/ch09_evolutionary_computing/09.03) |
+  [js](https://editor.p5js.org/natureofcode/sketches/565K_KXSA)
+
 * 09.04 -- interactive_selection:
-  [py](ch09_evolutionary_computing/09.04) | [js](https://editor.p5js.org/natureofcode/sketches/dUeAaapkQ)
+  [py](nature_of_code/ch09_evolutionary_computing/09.04) |
+  [js](https://editor.p5js.org/natureofcode/sketches/dUeAaapkQ)
+
 * 09.05 -- evolving_ecosystem:
-  [py](ch09_evolutionary_computing/09.05) | [js](https://editor.p5js.org/natureofcode/sketches/1HDlp_tKF)
+  [py](nature_of_code/ch09_evolutionary_computing/09.05) |
+  [js](https://editor.p5js.org/natureofcode/sketches/1HDlp_tKF)
 
 ### Ch. 10 -- Neural Networks
 

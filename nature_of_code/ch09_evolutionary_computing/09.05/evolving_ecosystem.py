@@ -4,5 +4,11 @@ from world import World
 
 
 def setup():
+    global world
     size(640, 240)
-    a = World(10)
+    # The world starts with 20 bloops and 20 pieces of food.
+    world = World(20)
+
+def draw():
+    background(255)
+    world.run()

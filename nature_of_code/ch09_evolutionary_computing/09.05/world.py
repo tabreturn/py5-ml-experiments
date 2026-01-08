@@ -1,5 +1,6 @@
 from py5 import get_current_sketch, random
 from bloop import Bloop
+from dna import DNA
 
 
 class World:
@@ -10,7 +11,8 @@ class World:
           # Create each bloop with a starting position.
           Bloop(
             random(get_current_sketch().width),
-            random(get_current_sketch().height)
+            random(get_current_sketch().height),
+            DNA()
           )
           for _ in range(population_size)
         ]

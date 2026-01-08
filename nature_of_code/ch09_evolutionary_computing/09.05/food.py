@@ -1,5 +1,5 @@
 from py5 import get_current_sketch, Py5Vector2D, random
-from py5 import CENTER, rect_mode, stroke, stroke_weight
+from py5 import CENTER, fill, rect_mode, square, stroke, stroke_weight
 
 
 class Food:
@@ -29,8 +29,8 @@ class Food:
             square(position.x, position.y, 8)
         
         # There's a small chance food will appear randomly.
-        if random(0.001):
-            self.food_position.append(Py5Vector2D(
-            random(get_current_sketch().width),
-            random(get_current_sketch().height)
-          ))
+        if random(1) < 0.001:
+            self.food_positions.append(Py5Vector2D(
+              random(get_current_sketch().width),
+              random(get_current_sketch().height)
+            ))

@@ -15,6 +15,6 @@ class DNA:
 
     def mutate(self, mutation_rate: float) -> None:
         """Mutation."""
-        for i, _ in enumerate(self.genes):
+        for i in range(len(self.genes)):
             if random(1) < mutation_rate:
                 self.genes[i] = random(1)

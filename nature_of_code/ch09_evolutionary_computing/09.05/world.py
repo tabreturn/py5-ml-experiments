@@ -25,7 +25,7 @@ class World:
     def run(self) -> None:
         """Run the world."""
         # This method draws the food and adds new food when necessary.
-        self.food.run
+        self.food.run()
 
         # Manage bloops (cycle through array backward since bloops are deleted).
         for i in range(len(self.bloops) - 1, -1, -1):
@@ -44,3 +44,10 @@ class World:
             # The value of the child is undefined if parent does not reproduce.
             if child is not None:
                 self.bloops.append(child)
+
+    def born(self, x: int, y: int) -> None:
+        """We can add a creature manually if we so desire."""
+        position = Py5Vector2D(
+          get_current_sketch().mouse_x, get_current_sketch().mouse_y
+        )
+        self.bloops.append(Bloop(position, DNA()))

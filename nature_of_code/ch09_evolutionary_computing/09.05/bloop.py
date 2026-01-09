@@ -12,7 +12,7 @@ class Bloop:
         self.max_speed = remap(self.dna.genes[0], 0, 1, 15, 0)
         self.r = remap(self.dna.genes[0], 0, 1, 0, 25)
         # DNA will determine size and max speed. Bigger bloop = slower it is.
-        self.health = 200.  # A variable to track the bloop's health.
+        self.health = 200.0  # A variable to track the bloop's health.
         self.position = position
         # Each bloop will use a different part of the 1D noise space.
         self.xoff = random(1000)

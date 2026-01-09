@@ -27,7 +27,7 @@ class Food:
 
         for position in self.food_positions:
             square(position.x, position.y, 8)
-        
+
         # There's a small chance food will appear randomly.
         if random(1) < 0.001:
             self.food_positions.append(Py5Vector2D(

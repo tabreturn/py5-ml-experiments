@@ -4,7 +4,8 @@ from py5 import random
 class DNA:
     # Genetic sequence is a single value! But scales for sophisticated bloops.
     def __init__(self):
-        self.genes = [random(1) for _ in range(1)]
+        GENE_COUNT = 1
+        self.genes = [random(1) for _ in range(GENE_COUNT)]
 
     def copy(self) -> 'DNA':
         """This copy() method replaces crossover()."""

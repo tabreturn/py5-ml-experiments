@@ -47,7 +47,5 @@ class World:
 
     def born(self, x: int, y: int) -> None:
         """We can add a creature manually if we so desire."""
-        position = Py5Vector2D(
-          get_current_sketch().mouse_x, get_current_sketch().mouse_y
-        )
+        position = Py5Vector2D(x, y)
         self.bloops.append(Bloop(position, DNA()))

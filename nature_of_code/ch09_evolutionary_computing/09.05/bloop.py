@@ -21,7 +21,7 @@ class Bloop:
     def eat(self, food: Food) -> None:
         food_positions = food.food_positions
         # Check all the food vectors.
-        for i in range(len(food_positions) - 1, -1, -1):
+        for i in reversed(range(len(food_positions))):
             position = food_positions[i]
             # How far away is the bloop?
             distance = Py5Vector2D.dist(self.position, position)
@@ -42,7 +42,7 @@ class Bloop:
             # The new bloop starts at this bloop's position.
             return Bloop(self.position.copy, child_dna)
 
-    def dead(self) -> float:
+    def dead(self) -> bool:
         """A method to test whether the bloop is alive or dead."""
         return self.health < 0.0
 
